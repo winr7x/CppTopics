@@ -52,4 +52,4 @@ else()
   message(FATAL_ERROR "Unexpected cmake generator ${CMAKE_GENERATOR}")
 endif()
 
-add_executable(StdThreadFunctionPointer MultithreadingIn20Minutes/StdThreadFunctionPointer.cpp)
+add_executable(1_main MultithreadingIn20Minutes/1_main.cc)
