@@ -52,5 +52,7 @@ else()
   message(FATAL_ERROR "Unexpected cmake generator ${CMAKE_GENERATOR}")
 endif()
 
-add_executable(1_main MultithreadingIn20Minutes/1_main.cc)
-add_executable(2_vector_of_threads_main MultithreadingIn20Minutes/2_vector_of_threads_main.cc)
+add_executable(1_main                       MultithreadingIn20Minutes/1_main.cc)
+add_executable(2_vector_of_threads_main     MultithreadingIn20Minutes/2_vector_of_threads_main.cc)
+
+add_executable(WhyStdRef                    WhyStdRef/main.cpp)
