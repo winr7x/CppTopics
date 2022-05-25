@@ -60,4 +60,5 @@ add_executable(5_async_main                 MultithreadingIn20Minutes_1/5_async_
 add_executable(6_async_functor_main         MultithreadingIn20Minutes_1/6_async_functor_main.cc)
 add_executable(7_async_lambda_main          MultithreadingIn20Minutes_1/7_async_lambda_main.cc)
 
+add_executable(1_race_condition_main        MultithreadingIn20Minutes_2/1_race_condition_main.cc)
 add_executable(WhyStdRef                    WhyStdRef/main.cpp)
