@@ -64,5 +64,6 @@ add_executable(1_race_condition_main        MultithreadingIn20Minutes_2/1_race_c
 add_executable(2_no_lock_main               MultithreadingIn20Minutes_2/2_no_lock_main.cc)
 add_executable(3_lock_unlock_main           MultithreadingIn20Minutes_2/3_lock_unlock_main.cc)
 add_executable(4_lock_guard_main            MultithreadingIn20Minutes_2/4_lock_guard_main.cc)
+add_executable(5_unique_lock_main           MultithreadingIn20Minutes_2/5_unique_lock_main.cc)
 
 add_executable(WhyStdRef                    WhyStdRef/main.cpp)
