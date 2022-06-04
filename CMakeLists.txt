@@ -69,5 +69,6 @@ add_executable(06_shared_lock_main                             MultithreadingIn2
 add_executable(07_dead_lock_main                               MultithreadingIn20Minutes_2/07_dead_lock_main.cc)
 add_executable(08_multiple_locks_before_cpp17_main             MultithreadingIn20Minutes_2/08_multiple_locks_before_cpp17_main.cc)
 add_executable(09_multiple_locks_after_cpp17_main              MultithreadingIn20Minutes_2/09_multiple_locks_after_cpp17_main.cc)
+add_executable(10_notify_thread_bad_main                       MultithreadingIn20Minutes_2/10_notify_thread_bad_main.cc)
 
 add_executable(WhyStdRef                    WhyStdRef/main.cpp)
