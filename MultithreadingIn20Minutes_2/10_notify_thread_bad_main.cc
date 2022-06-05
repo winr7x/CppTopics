@@ -9,6 +9,7 @@
 
 // SOLUTION: another thread monitors flag (g_ready) and read message (g_data)
 
+// * why bad? because g_ready is monitored through sleep loop with the need to adjust sleep time (see ZZ3)
 // * producer is the lead loop that will iterate from start to finish
 // * producer will produce all planned data
 // * consumer is a seсondary loop
@@ -74,7 +75,7 @@ void producer() {
 
 
     ul.unlock(); // let consumer read data from here
-    std::this_thread::sleep_for(std::chrono::milliseconds(30));
+    std::this_thread::sleep_for(std::chrono::milliseconds(30)); // ZZ3
     // ul.lock(); // unique_lock::unlock() function IS NOT called on destruction of ul if unlock() was called manually before
                   // so unlock() signal will NOT be received on given mutex twice
                   // so undefined behavior will NOT happen
@@ -99,7 +100,7 @@ void consumer() {
     // Busy waiting
     while(!g_ready) {
       ul.unlock();
-      std::this_thread::sleep_for(std::chrono::milliseconds(30));  // 2) unlock and sleep
+      std::this_thread::sleep_for(std::chrono::milliseconds(30));  // 2) unlock and sleep  // ZZ3
       ul.lock();                                                   // 3) lock and check g_ready
     }
                                                                    // 4) handle g_data being locked
