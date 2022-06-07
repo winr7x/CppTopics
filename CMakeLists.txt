@@ -72,5 +72,6 @@ add_executable(09_multiple_locks_after_cpp17_main              MultithreadingIn2
 add_executable(10_notify_thread_bad_main                       MultithreadingIn20Minutes_2/10_notify_thread_bad_main.cc)
 add_executable(11_notify_thread_good_main                      MultithreadingIn20Minutes_2/11_notify_thread_good_main.cc)
 add_executable(12_notify_thread_good_homework1_main            MultithreadingIn20Minutes_2/12_notify_thread_good_homework1_main.cc)
+add_executable(13_notify_thread_good_homework2_main            MultithreadingIn20Minutes_2/13_notify_thread_good_homework2_main.cc)
 
 add_executable(WhyStdRef                    WhyStdRef/main.cpp)
