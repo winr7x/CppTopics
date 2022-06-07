@@ -79,7 +79,7 @@ void producer() {
     // ul.lock(); // unique_lock::unlock() function IS NOT called on destruction of ul if unlock() was called manually before
                   // so unlock() signal will NOT be received on given mutex twice
                   // so undefined behavior will NOT happen
-                  // so you don't need call ul.lock() here
+                  // so you don't need ul.lock() unlocked mutex here
 
 #if 0 // ZZ1 uncomment section to guarantee that consumer will read all producer's data
     for (ul.lock(); g_ready; ) {
