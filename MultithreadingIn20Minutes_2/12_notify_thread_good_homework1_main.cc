@@ -1,12 +1,15 @@
 // https://youtu.be/jwJ4Eh_2Umo?t=2031
 
-// ESSENCE: homework: how to notify only specific thread
+// ESSENCE: homework1: how to notify only specific thread
 
 // PREVIOUS: notify another thread. good example with conditional var
 // NEXT: homework2
 
-// SOLUTION: use notify_all (both in producer and in consumers). Specific consumer reacts only if see that data is for him.
+// SOLUTION: use notify_all (both in producer and in consumers). Specific consumer reacts only if see that data is for him (see ZZ1)
 
+// * producer generates random number and do notify_all().
+//   Consumer1 consumes only even numbers and notify producer back.
+//   Consumer2 consumes only odd numbers and notify producer back.
 // * technically notify specific thread is impossible
 //     thread_one() notifies only one of threads, waiting with wait(), chosen randomly
 //     thread_all() notifies all threads at once, waiting with wait()
@@ -26,10 +29,9 @@
 #include <vector>
 
 std::mutex g_mutex;
-std::mutex g_mutex2;
 std::condition_variable g_cv;
 int g_data{};
-int g_ready{};
+bool g_ready{};
 
 // some snippet from internet
 int GenRandomValue(int start, int end) {
@@ -63,10 +65,7 @@ void producer() {
     // notify consumer1 thread
     g_cv.notify_all();
     ul.lock();
-    while (!(g_ready == 0)) {
-      // std::cout << "producer wait" << std::endl;
-      g_cv.wait(ul);
-    }
+    g_cv.wait(ul, [](){ return !g_ready; });
   }
   std::cout << "producer completed" << std::endl;
 }
@@ -83,37 +82,33 @@ void consumer1() {
   int data{};
   while (true) {
     std::unique_lock<std::mutex> ul(g_mutex);
-    g_cv.wait(ul, [](){ return (g_ready && evenData()); }); // react on message from producer only if data is even
+    g_cv.wait(ul, [](){ return (g_ready && evenData()); }); // react on message from producer only if data is even ZZ1
     // Sample data
     data = g_data;
     std::cout << "consumer1 data: " << data << std::endl;
-    g_ready = 0;
+    g_ready = false;
     ul.unlock();
     g_cv.notify_all();                                      // if use notify_one(), producer can never receive notification
                                                             // because notification targets are consumer2 and producer and
                                                             // and one of them will be chosen randomly
   }
-  std::cout << "consumer1 completed" << std::endl;
 }
 
 void consumer2() {
   int data{};
   while (true) {
     std::unique_lock<std::mutex> ul(g_mutex);
-    g_cv.wait(ul, [](){ return (g_ready && oddData()); }); // react on message from producer only if data is odd
+    g_cv.wait(ul, [](){ return (g_ready && oddData()); }); // react on message from producer only if data is odd ZZ1
     // Sample data
     data = g_data;
     std::cout << "consumer2 data: " << data << std::endl;
-    g_ready = 0;
+    g_ready = false;
     ul.unlock();
     g_cv.notify_all();                                      // if use notify_one(), producer can never receive notification
                                                             // because notification targets are consumer1 and producer and
                                                             // and one of them will be chosen randomly
   }
-  std::cout << "consumer2 completed" << std::endl;
 }
-
-
 
 int main() {
 
