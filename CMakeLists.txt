@@ -52,6 +52,7 @@ else()
   message(FATAL_ERROR "Unexpected cmake generator ${CMAKE_GENERATOR}")
 endif()
 
+# MultithreadingIn20Minutes_1
 add_executable(1_main                                         MultithreadingIn20Minutes_1/1_main.cc)
 add_executable(2_vector_of_threads_main                       MultithreadingIn20Minutes_1/2_vector_of_threads_main.cc)
 add_executable(3_functors_main                                MultithreadingIn20Minutes_1/3_functors_main.cc)
@@ -60,6 +61,7 @@ add_executable(5_async_main                                   MultithreadingIn20
 add_executable(6_async_functor_main                           MultithreadingIn20Minutes_1/6_async_functor_main.cc)
 add_executable(7_async_lambda_main                            MultithreadingIn20Minutes_1/7_async_lambda_main.cc)
 
+# MultithreadingIn20Minutes_2
 add_executable(01_race_condition_main                         MultithreadingIn20Minutes_2/01_race_condition_main.cc)
 add_executable(02_no_lock_main                                MultithreadingIn20Minutes_2/02_no_lock_main.cc)
 add_executable(03_lock_unlock_main                            MultithreadingIn20Minutes_2/03_lock_unlock_main.cc)
@@ -75,4 +77,5 @@ add_executable(12_notify_thread_good_homework1_main           MultithreadingIn20
 add_executable(13_notify_thread_good_homework2_main           MultithreadingIn20Minutes_2/13_notify_thread_good_homework2_main.cc)
 add_executable(14_condition_variable_simple_example_main      MultithreadingIn20Minutes_2/14_condition_variable_simple_example_main.cc)
 
+# WhyStdRef
 add_executable(WhyStdRef                    WhyStdRef/main.cpp)
