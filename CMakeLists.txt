@@ -82,3 +82,4 @@ add_executable(WhyStdRef                                      WhyStdRef/main.cpp
 
 # Leetcode
 add_executable(0_brute_force                                  Leetcode/TwoSum/0_brute_force.cpp)
+add_executable(1_hash_map                                     Leetcode/TwoSum/1_hash_map.cpp)
