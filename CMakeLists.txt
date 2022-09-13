@@ -78,4 +78,7 @@ add_executable(13_notify_thread_good_homework2_main           MultithreadingIn20
 add_executable(14_condition_variable_simple_example_main      MultithreadingIn20Minutes_2/14_condition_variable_simple_example_main.cc)
 
 # WhyStdRef
-add_executable(WhyStdRef                    WhyStdRef/main.cpp)
+add_executable(WhyStdRef                                      WhyStdRef/main.cpp)
+
+# Leetcode
+add_executable(TwoSum                                         Leetcode/TwoSum/main.cpp)
