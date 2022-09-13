@@ -81,4 +81,4 @@ add_executable(14_condition_variable_simple_example_main      MultithreadingIn20
 add_executable(WhyStdRef                                      WhyStdRef/main.cpp)
 
 # Leetcode
-add_executable(TwoSum                                         Leetcode/TwoSum/main.cpp)
+add_executable(0_brute_force                                  Leetcode/TwoSum/0_brute_force.cpp)
