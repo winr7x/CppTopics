@@ -131,6 +131,13 @@ void print_vec_one_per_line_GOOD(const std::vector<int> &arr) {
   }
 }
 
+// ### 10 ### GOOD
+const char* string_literal_lifetimes()
+{
+  // literal is guaranteed to live for the entire life of a program
+  // even thought it looks like it is a reference to a local variable
+  return "string literals";
+}
 int main(int argc, char *argv[]) {
   (void)argc; (void)argv;
 
@@ -160,6 +167,9 @@ int main(int argc, char *argv[]) {
   std::vector<int> nums {8, 4, 1};
   print_vec_one_per_line_BAD(nums);
   print_vec_one_per_line_GOOD(nums);
+
+  // ### 10 ### Not knowing about string literal lifetimes
+  string_literal_lifetimes();
 
   return EXIT_SUCCESS;
 }
