@@ -194,6 +194,30 @@ void loop_map_items_BETTER()
   }
 }
 
+// ### 12 ### BAD
+void get_values_out_params(const int n, int &out1, int &out2)
+{
+  out1 = n;
+  out2 = n + 1;
+}
+
+// ### 12 ### GOOD
+struct Values
+{
+  int x, y;
+};
+
+// ### 12 ### GOOD
+Values get_values_return_struct(const int n)
+{
+  return {n, n + 1};
+}
+
+// ### 12 ### GOOD
+void use_values()
+{
+  [[maybe_unused]] auto [x, y] = get_values_return_struct(2); // structured binding
+}
 
 int main(int argc, char *argv[]) {
   (void)argc; (void)argv;
@@ -232,6 +256,12 @@ int main(int argc, char *argv[]) {
   loop_map_items_BAD();
   loop_map_items_GOOD();
   loop_map_items_BETTER();
+
+  // ### 12 ### Using multiple out parameters when you want to return multiple things from function
+  int out1, out2;
+  get_values_out_params(0, out1, out2); // BAD !
+  [[maybe_unused]] const auto values = get_values_return_struct(0); // GOOD !
+  use_values(); // GOOD !
 
   return EXIT_SUCCESS;
 }
