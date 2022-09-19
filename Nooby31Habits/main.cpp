@@ -138,6 +138,63 @@ const char* string_literal_lifetimes()
   // even thought it looks like it is a reference to a local variable
   return "string literals";
 }
+
+// ### 11 ### BAD
+void loop_map_items_BAD()
+{
+  std::unordered_map<std::string, std::string> colors = {
+    {"RED", "#FF0000"},
+    {"GREEN", "#00FF00"},
+    {"BLUE", "#0000FF"}
+  };
+
+  std::cout << "### 11 ### loop_map_items_BAD():\n";
+
+  for (const auto &pair: colors) {
+    std::cout << "name: " << pair.first << ", hex: " << pair.second << '\n';
+  }
+}
+
+// ### 11 ### GOOD
+void loop_map_items_GOOD()
+{
+  std::unordered_map<std::string, std::string> colors = {
+    {"RED", "#FF0000"},
+    {"GREEN", "#00FF00"},
+    {"BLUE", "#0000FF"}
+  };
+
+  std::cout << "### 11 ### loop_map_items_GOOD():\n";
+
+  for (const auto &[name, hex]: colors) {
+    std::cout << "name: " << name << ", hex: " << hex << '\n';
+  }
+}
+
+// ### 11 ### BETTER
+struct S
+{
+  std::string name;
+  std::string hex;
+};
+
+// ### 11 ### BETTER
+void loop_map_items_BETTER()
+{
+  std::vector<S> colors = {
+    {"RED", "#FF0000"},
+    {"GREEN", "#00FF00"},
+    {"BLUE", "#0000FF"}
+  };
+
+  std::cout << "### 11 ### loop_map_items_BETTER():\n";
+
+  for (const auto &[name, hex]: colors) {
+    std::cout << "name: " << name << ", hex: " << hex << '\n';
+  }
+}
+
+
 int main(int argc, char *argv[]) {
   (void)argc; (void)argv;
 
@@ -170,6 +227,11 @@ int main(int argc, char *argv[]) {
 
   // ### 10 ### Not knowing about string literal lifetimes
   string_literal_lifetimes();
+
+  // ### 11 ### Not using structured bindings
+  loop_map_items_BAD();
+  loop_map_items_GOOD();
+  loop_map_items_BETTER();
 
   return EXIT_SUCCESS;
 }
