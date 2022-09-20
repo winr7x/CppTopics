@@ -219,6 +219,28 @@ void use_values()
   [[maybe_unused]] auto [x, y] = get_values_return_struct(2); // structured binding
 }
 
+// ### 13 ### BAD
+int sum_of_1_to_n_BAD(const int n)
+{
+  // return sum of the first n integers
+  // Arithmetic progression sum(n) formula
+  return n * (n + 1) / 2;
+}
+
+// ### 13 ### GOOD
+constexpr int sum_of_1_to_n_GOOD(const int n)
+{
+  return n * (n + 1) / 2;
+}
+
+// ### 13 ###
+void use_sum()
+{
+  const int limit = 1000;
+  [[maybe_unused]] auto triangle_n_BAD = sum_of_1_to_n_BAD(limit);
+  [[maybe_unused]] auto triangle_n_GOOD = sum_of_1_to_n_GOOD(limit);
+}
+
 int main(int argc, char *argv[]) {
   (void)argc; (void)argv;
 
@@ -262,6 +284,9 @@ int main(int argc, char *argv[]) {
   get_values_out_params(0, out1, out2); // BAD !
   [[maybe_unused]] const auto values = get_values_return_struct(0); // GOOD !
   use_values(); // GOOD !
+
+  // ### 13 ### Doing work at runtime that could have been done at compile time
+  use_sum();
 
   return EXIT_SUCCESS;
 }
