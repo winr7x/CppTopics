@@ -241,6 +241,63 @@ void use_sum()
   [[maybe_unused]] auto triangle_n_GOOD = sum_of_1_to_n_GOOD(limit);
 }
 
+// ### 14 ### BAD
+class BaseWithNonvirtualDestructor
+{
+public:
+  void foo() {
+    std::cout << "do foo\n";
+  }
+
+  ~BaseWithNonvirtualDestructor() {                           // Use virtual here !
+    std::cout << "called base destructor\n";
+  }
+};
+
+// ### 14 ### BAD
+class DerivedBad : public BaseWithNonvirtualDestructor
+{
+public:
+  ~DerivedBad() {
+    std::cout << "called derived destructor\n";
+  }
+};
+
+// ### 14 ### BAD
+void consume_base_bad(std::unique_ptr<BaseWithNonvirtualDestructor> p)
+{
+  p->foo();
+  // deletes p when done
+}
+
+// ### 14 ### GOOD
+class Base
+{
+public:
+  void foo() {
+    std::cout << "do foo\n";
+  }
+
+  virtual ~Base() {
+    std::cout << "called base destructor\n";
+  }
+};
+
+// ### 14 GOOD
+class DerivedGood : public Base
+{
+public:
+  ~DerivedGood() override {                                   // use override here !
+    std::cout << "called derived destructor\n";
+  }
+};
+
+// ### 14 ### GOOD
+void consume_base_good(std::unique_ptr<Base> p)
+{
+  p->foo();
+  // deletes p when done
+}
 int main(int argc, char *argv[]) {
   (void)argc; (void)argv;
 
@@ -287,6 +344,10 @@ int main(int argc, char *argv[]) {
 
   // ### 13 ### Doing work at runtime that could have been done at compile time
   use_sum();
+
+  // ### 14 ### Forgetting to mark destructors virtual
+  consume_base_bad(std::make_unique<DerivedBad>());
+  consume_base_good(std::make_unique<DerivedGood>());
 
   return EXIT_SUCCESS;
 }
