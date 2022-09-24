@@ -325,6 +325,19 @@ void default_vs_value_initialization()
   [[maybe_unused]] S2 *p3 = new S2();                      // p3 is value initialized. n and m is initialized by 0. s is empty string.
 }
 
+// ### 17 ###
+float energy_bad(float m)
+{
+  return m * 299792458.0 * 299792458.0;
+}
+
+// ### 17 ###
+float energy_good(float m)
+{
+  constexpr float SPEED_OF_LIGHT = 299792458.0;
+  return m * SPEED_OF_LIGHT * SPEED_OF_LIGHT;
+}
+
 int main(int argc, char *argv[]) {
   (void)argc; (void)argv;
 
@@ -381,6 +394,10 @@ int main(int argc, char *argv[]) {
 
   // ### 16 ### Not realizing there's a difference between default and value initialization
   default_vs_value_initialization();
+
+  // ### 17 ### Overuse of magic numbers
+  energy_bad(7.3);
+  energy_good(7.3);
 
   return EXIT_SUCCESS;
 }
