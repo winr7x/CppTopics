@@ -298,6 +298,33 @@ void consume_base_good(std::unique_ptr<Base> p)
   p->foo();
   // deletes p when done
 }
+
+// ### 16 ###
+struct S2
+{
+  int n, m;
+  std::string s;
+};
+
+// ### 16 ###
+void default_vs_value_initialization()
+{
+  [[maybe_unused]] int x;               // x is default initialized. It is initialized by garbage
+  [[maybe_unused]] int *x2 = new int;   // x2 is default initialized. It is initialized by garbage
+  delete x2;
+
+  [[maybe_unused]] int y{};             // y is value initialized. It is initialized by 0
+  [[maybe_unused]] int *y2 = new int{}; // y2 is value initialized. It is initialized by 0
+  [[maybe_unused]] int *y3 = new int{}; // y3 is value initialized. It is initialized by 0
+
+  [[maybe_unused]] S2 o;                                  // o is default initialized. n and m is initialized by garbage. s is empty string.
+  [[maybe_unused]] S2 *o2 = new S2;                        // o2 is default initialized. n and m is initialized by garbage. s is empty string.
+
+  [[maybe_unused]] S2 p{};                                // p is value initialized. n and m is initialized by 0. s is empty string.
+  [[maybe_unused]] S2 *p2 =  new S2{};                     // p2 is value initialized. n and m is initialized by 0. s is empty string.
+  [[maybe_unused]] S2 *p3 = new S2();                      // p3 is value initialized. n and m is initialized by 0. s is empty string.
+}
+
 int main(int argc, char *argv[]) {
   (void)argc; (void)argv;
 
@@ -348,6 +375,12 @@ int main(int argc, char *argv[]) {
   // ### 14 ### Forgetting to mark destructors virtual
   consume_base_bad(std::make_unique<DerivedBad>());
   consume_base_good(std::make_unique<DerivedGood>());
+
+  // ### 15 ### Thinking that class members are initialized in the order they appear in the
+  // initializer list
+
+  // ### 16 ### Not realizing there's a difference between default and value initialization
+  default_vs_value_initialization();
 
   return EXIT_SUCCESS;
 }
