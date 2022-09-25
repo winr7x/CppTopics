@@ -338,6 +338,48 @@ float energy_good(float m)
   return m * SPEED_OF_LIGHT * SPEED_OF_LIGHT;
 }
 
+// ### 18 ###
+void modify_while_iterating_BAD()
+{
+  std::cout << "### 18 ### modify_while_iterating_BAD():\n";
+  std::vector<int> v{1, 2, 3, 4};
+
+  // We're trying to put copy of the vector to the end of the vector BAD
+  for (auto x : v) {
+    v.push_back(x);  // adding or removing an element to the vector may invalidate the iterators to the vector
+                     // push_back might need to resize the vector and move all the elements to a new location
+  }
+
+  // We're trying to put copy of the vector to the end of the vector BAD
+  for (auto it = v.begin(), end = v.end(); it != end; ++it) {
+    v.push_back(*it);
+  }
+
+  for (auto x : v) {
+    std::cout << x << ' ';
+  }
+  
+  std::cout << '\n';
+}
+
+void modify_while_iterating_GOOD()
+{
+  std::cout << "### 18 ### modify_while_iterating_GOOD():\n";
+  std::vector<int> v{1, 2, 3, 4};
+
+  // We're trying to put copy of the vector to the end of the vector GOOD
+  const std::size_t size = v.size();
+  for (std::size_t i = 0; i < size; ++i) {
+    v.push_back(v[i]); // it doesn't matter if the contents of your vector get moved somewhere else the i-th element is still the i-th element
+  }
+
+  for (auto x : v) {
+    std::cout << x << ' ';
+  }
+  
+  std::cout << '\n';
+}
+
 int main(int argc, char *argv[]) {
   (void)argc; (void)argv;
 
@@ -398,6 +440,10 @@ int main(int argc, char *argv[]) {
   // ### 17 ### Overuse of magic numbers
   energy_bad(7.3);
   energy_good(7.3);
+
+  // ### 18 ### Attempting to add or remove elements from a container while looping over it
+  modify_while_iterating_BAD();
+  modify_while_iterating_GOOD();
 
   return EXIT_SUCCESS;
 }
