@@ -362,6 +362,7 @@ void modify_while_iterating_BAD()
   std::cout << '\n';
 }
 
+// ### 18 ###
 void modify_while_iterating_GOOD()
 {
   std::cout << "### 18 ### modify_while_iterating_GOOD():\n";
@@ -378,6 +379,29 @@ void modify_while_iterating_GOOD()
   }
   
   std::cout << '\n';
+}
+
+// ### 19 ###
+std::vector<int> make_vector_BAD([[maybe_unused]] const int n)
+{
+  std::vector<int> v{1, 2, 3, 4, 5};
+
+  // do whatever with vector
+
+  // Speaking of RVO, return std::move(w); prohibits it
+  // It means "use move constructor or fail to compile", whereas 
+  // return w; means "use RVO, and if you can't, use move constructor, and if you can't, use copy constructor, and if you can't, fail to compile."
+  return std::move(v); // BAD !
+}
+
+// ### 19 ###
+std::vector<int> make_vector_GOOD([[maybe_unused]] const int n)
+{
+  std::vector<int> v{1, 2, 3, 4, 5};
+
+  // do whatever with vector
+
+  return v; // if you had just tried to return v directly, there would have been no copy and no move
 }
 
 int main(int argc, char *argv[]) {
@@ -445,5 +469,9 @@ int main(int argc, char *argv[]) {
   modify_while_iterating_BAD();
   modify_while_iterating_GOOD();
 
+  // ### 19 ### Returning a moved local variable
+  auto make_vector_BAD_var = make_vector_BAD(3);
+  auto make_vector_GOOD_var = make_vector_GOOD(2);
+  
   return EXIT_SUCCESS;
 }
