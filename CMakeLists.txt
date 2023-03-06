@@ -90,3 +90,6 @@ add_executable(left_right_pointers                            Leetcode/TwoSumInp
 
 # Nooby31Habits
 add_executable(Nooby31Habits                                  Nooby31Habits/main.cpp)
+
+# PolishNotationParser
+add_executable(PolishNotationParser                           PolishNotationParser/PolishNotationParser/PolishNotationParser.cpp)
