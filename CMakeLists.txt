@@ -93,3 +93,6 @@ add_executable(Nooby31Habits                                  Nooby31Habits/main
 
 # PolishNotationParser
 add_executable(PolishNotationParser                           PolishNotationParser/PolishNotationParser/PolishNotationParser.cpp)
+
+# PlacementNew
+add_executable(PlacementNew                                   PlacementNew/main.cpp)
