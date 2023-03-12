@@ -96,3 +96,6 @@ add_executable(PolishNotationParser                           PolishNotationPars
 
 # PlacementNew
 add_executable(PlacementNew                                   PlacementNew/main.cpp)
+
+# CyclicSharedPtrReference
+add_executable(CyclicSharedPtrReference                       CyclicSharedPtrReference/main.cpp)
