@@ -420,6 +420,38 @@ std::vector<int> make_vector_GOOD([[maybe_unused]] const int n)
             // And even if compiler can't do RVO, the compile knows that it can move a local variable
 }
 
+// ### 21 ###
+int evaluation_order_1() {
+  std::cout << "evaluation_order_1()\n";
+  return 0;
+}
+
+int evaluation_order_2() {
+  std::cout << "evaluation_order_2()\n";
+  return 0;
+}
+
+int evaluation_order_3() {
+  std::cout << "evaluation_order_3()\n";
+  return 0;
+}
+
+void evaluation_order(
+  [[maybe_unused]] int x,
+  [[maybe_unused]] int y,
+  [[maybe_unused]] int z)
+{
+  std::cout << "";
+}
+
+void evaluation_order_not_guaranteed() {
+  std::cout << "### 21 ### evaluation_order_not_guaranteed():\n";
+  // You can expect evaluation will be from left to right
+  // but it can be in any order, e.g. in last attempt it was:
+  // evaluation_order_3() evaluation_order_2() evaluation_order_1()
+  evaluation_order (evaluation_order_1(), evaluation_order_2(), evaluation_order_3());
+}
+
 int main([[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) {
 
   // ### 5 ### Using a C-style array when you could haved used a standard library
@@ -487,5 +519,8 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) {
   auto make_vector_BAD_var = make_vector_BAD(3);
   auto make_vector_GOOD_var = make_vector_GOOD(2);
   
+  // ### 21 ### Thinking evaluation order is left to right
+  evaluation_order_not_guaranteed();
+
   return EXIT_SUCCESS;
 }
