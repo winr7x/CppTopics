@@ -328,7 +328,7 @@ void default_vs_value_initialization()
 
   [[maybe_unused]] int y{};             // y is value initialized. It is initialized by 0
   [[maybe_unused]] int *y2 = new int{}; // y2 is value initialized. It is initialized by 0
-  [[maybe_unused]] int *y3 = new int{}; // y3 is value initialized. It is initialized by 0
+  [[maybe_unused]] int *y3 = new int(); // y3 is value initialized. It is initialized by 0
 
   [[maybe_unused]] S2 o;                                  // o is default initialized. n and m is initialized by garbage. s is empty string.
   [[maybe_unused]] S2 *o2 = new S2;                        // o2 is default initialized. n and m is initialized by garbage. s is empty string.
