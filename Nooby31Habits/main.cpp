@@ -4,6 +4,7 @@
 #include <bit>     // for std::bit_cast
 #include <cstdlib> // for EXIT_SUCCESS
 #include <cstddef> // for std::to_integer
+#include <format>  // for std::format
 #include <iomanip> // for std::setw()
 #include <iostream> // for std::cout
 #include <vector>
@@ -75,6 +76,12 @@ void print_bytes(const T &input)
             << std::to_integer<short>(*(bytes + 1))
             << std::to_integer<short>(*bytes)                 // here least significant byte is stored !
             << '\n';
+
+  std::cout << std::format("### 6 ### print_bytes() [std::format()]: 0x{:02x}{:02x}{:02x}\n", // The 0 option pads the field with leading zeros
+    std::to_integer<short>(bytes[2]),
+    std::to_integer<short>(bytes[1]),
+    std::to_integer<short>(bytes[0])
+  );
 }
 
 // ### 6 ### BETTER
@@ -96,6 +103,12 @@ void print_bytes_better(const T &input)
             << std::to_integer<short>(bytes[1])
             << std::to_integer<short>(bytes[0])               // here least significant byte is stored !
             << '\n';
+
+  std::cout << std::format("### 6 ### print_bytes_better() [std::format()]: 0x{:02x}{:02x}{:02x}\n", // The 0 option pads the field with leading zeros
+    std::to_integer<short>(bytes[2]),
+    std::to_integer<short>(bytes[1]),
+    std::to_integer<short>(bytes[0])
+  );
 }
 
 // ### 7 ### BAD
