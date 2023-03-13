@@ -229,7 +229,7 @@ Values get_values_return_struct(const int n)
 // ### 12 ### GOOD
 void use_values()
 {
-  [[maybe_unused]] auto [x, y] = get_values_return_struct(2); // structured binding
+  [[maybe_unused]] const auto &[x, y] = get_values_return_struct(2); // structured binding
 }
 
 // ### 13 ### BAD
