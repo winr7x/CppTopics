@@ -417,9 +417,7 @@ std::vector<int> make_vector_GOOD([[maybe_unused]] const int n)
   return v; // if you had just tried to return v directly, there would have been no copy and no move
 }
 
-int main(int argc, char *argv[]) {
-  (void)argc; (void)argv;
-
+int main([[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) {
 
   // ### 5 ### Using a C-style array when you could haved used a standard library
   using_c_array_BAD();
