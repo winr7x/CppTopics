@@ -358,13 +358,13 @@ void modify_while_iterating_BAD()
   std::cout << "### 18 ### modify_while_iterating_BAD():\n";
   std::vector<int> v{1, 2, 3, 4};
 
-  // We're trying to put copy of the vector to the end of the vector BAD
+  // We're trying to put copy of the vector to the end of the vector (by pushing each iterated element) BAD
   for (auto x : v) {
-    v.push_back(x);  // adding or removing an element to the vector may invalidate the iterators to the vector
+    v.push_back(x);  // adding or removing an element to the vector may INVALIDATE THE ITERATORS to the vector
                      // push_back might need to resize the vector and move all the elements to a new location
   }
 
-  // We're trying to put copy of the vector to the end of the vector BAD
+  // We're trying to put copy of the vector to the end of the vector (by pushing each iterated element) BAD
   for (auto it = v.begin(), end = v.end(); it != end; ++it) {
     v.push_back(*it);
   }
