@@ -402,7 +402,7 @@ std::vector<int> make_vector_BAD([[maybe_unused]] const int n)
 
   // do whatever with vector
 
-  // Speaking of RVO, return std::move(w); prohibits it
+  // Speaking of RVO (Return Value Optimization), return std::move(w); prohibits it
   // It means "use move constructor or fail to compile", whereas 
   // return w; means "use RVO, and if you can't, use move constructor, and if you can't, use copy constructor, and if you can't, fail to compile."
   return std::move(v); // BAD !
@@ -415,7 +415,9 @@ std::vector<int> make_vector_GOOD([[maybe_unused]] const int n)
 
   // do whatever with vector
 
-  return v; // if you had just tried to return v directly, there would have been no copy and no move
+  return v; // if you had just tried to return v directly, 
+            // there would have been no copy and no move because of RVO (Return Value Optimization)
+            // And even if compiler can't do RVO, the compile knows that it can move a local variable
 }
 
 int main([[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) {
