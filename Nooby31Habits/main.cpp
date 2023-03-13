@@ -324,6 +324,7 @@ void default_vs_value_initialization()
 {
   [[maybe_unused]] int x;               // x is default initialized. It is initialized by garbage
   [[maybe_unused]] int *x2 = new int;   // x2 is default initialized. It is initialized by garbage
+  [[maybe_unused]] int x3();            // this is FUNCTION DECLARATION at all - not variable !!!
   delete x2;
 
   [[maybe_unused]] int y{};             // y is value initialized. It is initialized by 0
