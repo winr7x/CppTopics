@@ -2,14 +2,17 @@
 
 #include <array>   // for std::array
 #include <bit>     // for std::bit_cast
+#include <chrono>
 #include <cstdlib> // for EXIT_SUCCESS
 #include <cstddef> // for std::to_integer
 #include <format>  // for std::format
 #include <iomanip> // for std::setw()
 #include <iostream> // for std::cout
+#include <thread> // for std::this_thread::sleep_for()
 #include <vector>
 #include <unordered_map>
 
+using namespace std::chrono_literals; // for sleep_for(1.0s)
 
 // ### 5 ### BAD
 void f([[maybe_unused]] int *arr,
@@ -477,6 +480,46 @@ void convert_unique_to_shared_is_easy_and_cheap() {
   [[maybe_unused]] const std::shared_ptr<int> shared2 = get_unique();
 }
 
+// ### 29 ###
+void do_something(std::stop_token token) { // std::stop_token have to be the last parameter
+  int counter{};
+  while (counter < 10) {
+    if (token.stop_requested()) {
+      return;
+    }
+    std::this_thread::sleep_for(0.2s);
+    std::cout << "This is interruptible thread : " << counter << std::endl;
+    ++counter;
+  }
+}
+
+// ### 29 ###
+void do_something_else() {
+  int counter{};
+  while (counter < 10) {
+    std::this_thread::sleep_for(0.2s);
+    std::cout << "This is non-interruptible thread : " << counter << std::endl;
+    ++counter;
+  }
+}
+
+// ### 29 ###
+void jthread_join_automatically_and_can_interrupt() {
+  // This is about jthread
+  // jthread is a thread that joins automatically when it goes out of scope (vs. std::thread)
+  // jthread is a thread that can be interrupted (vs. std::thread)
+  
+  std::cout << "### 29 ### jthread_join_automatically_and_can_interrupt():\n";
+  std::jthread nonInteruptable(do_something_else);
+  std::jthread interuptable(do_something);
+
+  std::this_thread::sleep_for(1.0s);
+  interuptable.request_stop(); // request interruption
+  nonInteruptable.request_stop();
+
+  std::cout << std::endl;
+}
+
 int main([[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) {
 
   // ### 5 ### Using a C-style array when you could haved used a standard library
@@ -549,6 +592,9 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) {
 
   // ### 28 ### Using shared ptr when unique ptr would do
   convert_unique_to_shared_is_easy_and_cheap();
+
+  // ### 29 ### Thinking shared ptr is thread-safe
+  jthread_join_automatically_and_can_interrupt();
 
   return EXIT_SUCCESS;
 }
