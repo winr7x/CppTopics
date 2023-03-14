@@ -452,6 +452,27 @@ void evaluation_order_not_guaranteed() {
   evaluation_order (evaluation_order_1(), evaluation_order_2(), evaluation_order_3());
 }
 
+// ### 28 ###
+std::unique_ptr<int> get_unique() {
+  return std::make_unique<int>(11);
+}
+
+// ### 28 ###
+void convert_unique_to_shared_is_easy_and_cheap() {
+  // Do not use shared_ptr when it is not really needed:
+  //   1) Getting shared from unique is easy and cheap
+  //   2) Extra memory to maintain a reference count
+  //   3) Every time reference count has to be incremented and decremented
+  //   4) When multiple threads then manipulation of the reference count has to be done in a thread-safe manne rwhich can add some additional overhead
+
+  // Way 1: with std::move()
+  auto unique = std::make_unique<int>(42);
+  [[maybe_unused]] const std::shared_ptr<int> shared1 = std::move(unique);
+
+  // Way 2: with function returned value
+  [[maybe_unused]] const std::shared_ptr<int> shared2 = get_unique();
+}
+
 int main([[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) {
 
   // ### 5 ### Using a C-style array when you could haved used a standard library
@@ -521,6 +542,9 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) {
   
   // ### 21 ### Thinking evaluation order is left to right
   evaluation_order_not_guaranteed();
+
+  // ### 28 ### Using shared ptr when unique ptr would do
+  convert_unique_to_shared_is_easy_and_cheap();
 
   return EXIT_SUCCESS;
 }
