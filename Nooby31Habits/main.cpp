@@ -342,13 +342,13 @@ void default_vs_value_initialization()
 // ### 17 ###
 float energy_bad(float m)
 {
-  return m * 299792458.0 * 299792458.0;
+  return m * 299792458.0f * 299792458.0f;
 }
 
 // ### 17 ###
 float energy_good(float m)
 {
-  constexpr float SPEED_OF_LIGHT = 299792458.0;
+  constexpr float SPEED_OF_LIGHT = 299792458.0f;
   return m * SPEED_OF_LIGHT * SPEED_OF_LIGHT;
 }
 
@@ -529,8 +529,8 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) {
   default_vs_value_initialization();
 
   // ### 17 ### Overuse of magic numbers
-  energy_bad(7.3);
-  energy_good(7.3);
+  energy_bad(7.3f);
+  energy_good(7.3f);
 
   // ### 18 ### Attempting to add or remove elements from a container while looping over it
   modify_while_iterating_BAD();
