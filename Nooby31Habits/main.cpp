@@ -426,16 +426,19 @@ int evaluation_order_1() {
   return 0;
 }
 
+// ### 21 ###
 int evaluation_order_2() {
   std::cout << "evaluation_order_2()\n";
   return 0;
 }
 
+// ### 21 ###
 int evaluation_order_3() {
   std::cout << "evaluation_order_3()\n";
   return 0;
 }
 
+// ### 21 ###
 void evaluation_order(
   [[maybe_unused]] int x,
   [[maybe_unused]] int y,
@@ -444,6 +447,7 @@ void evaluation_order(
   std::cout << "";
 }
 
+// ### 21 ###
 void evaluation_order_not_guaranteed() {
   std::cout << "### 21 ### evaluation_order_not_guaranteed():\n";
   // You can expect evaluation will be from left to right
