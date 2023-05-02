@@ -12,18 +12,22 @@ using std::format;
 class B;
 
 class A {
+
 public:
-    #ifdef ENABLE_SOLUTION
+#ifdef ENABLE_SOLUTION
     std::weak_ptr<B> b;
-    #else
+#else
     std::shared_ptr<B> b;
-    #endif     
+#endif     
+
     ~A() { cout << "~A\n"; }
 };
 
 class B {
+
 public:
     std::shared_ptr<A> a;
+
     ~B() { cout << "~B\n"; }
 };
 
