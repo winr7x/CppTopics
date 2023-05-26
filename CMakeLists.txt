@@ -28,7 +28,7 @@ if(CMAKE_GENERATOR MATCHES "^Visual Studio.+")
                        # For a new project, it may be best to use /W4 in all compilations.
                        # This option helps ensure the fewest possible hard-to-find code defects.
   )
-elseif(CMAKE_GENERATOR STREQUAL "MinGW Makefiles")
+elseif(CMAKE_GENERATOR STREQUAL "MinGW Makefiles" OR CMAKE_GENERATOR STREQUAL "Unix Makefiles")
   # message("##### CMAKE_GENERATOR is MinGW")
   add_compile_options(
     -g                 # generates debug information to be used by GDB debugger
