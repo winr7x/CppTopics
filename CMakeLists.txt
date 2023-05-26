@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 3.13.3) # 3.13.3 was released Jan 14, 2019
 
-set(PROJECT_NAME MultithreadingIn20Minutes)
+set(PROJECT_NAME CppTopics)
 
 project (${PROJECT_NAME})
 
