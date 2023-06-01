@@ -99,3 +99,6 @@ add_executable(PlacementNew                                   PlacementNew/main.
 
 # CyclicSharedPtrReference
 add_executable(CyclicSharedPtrReference                       CyclicSharedPtrReference/main.cpp)
+
+# StdAsync
+add_executable(StdAsync                                       StdAsync/main.cpp)
